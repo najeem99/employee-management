@@ -1,0 +1,79 @@
+/* $Widget
+ ------------------------------------------*/
+@use '@angular/material' as mat;
+
+// $color-hover: #e3e3e3;
+$color-hover:  #34363d ;
+$color-odd-background: #F0F8FC ;
+
+.mat-mdc-row:nth-child(even):not(:hover) {
+  background-color: $color-odd-background !important; /* Set the background color for odd rows */
+}
+.mat-mdc-table:not(.no-hover) > .mat-mdc-row:nth-child(even):hover {
+  background-color:rgb(51 153 204 / 11%)  !important;
+}
+.mat-mdc-table:not(.no-hover) > .mat-mdc-row:nth-child(odd):hover {
+  background-color:rgb(51 153 204 / 11%) !important;
+}
+.mat-mdc-header-cell{
+  background-color:  #262c40 !important;
+}
+tr.no-hover:hover {
+  background-color: #FFFFFF !important;
+}
+.mat-mdc-header-cell{
+  font-family: 'Raleway' !important;
+  font-weight: 800 !important;;
+  color: white !important;
+  // box-shadow: inset 0 -8px 4px 6px rgb(51 153 204), inset 0 2px 4px 0px rgba(50, 50, 50, 0.75);
+}
+.mdc-data-table__cell , .mdc-data-table__header-cell {
+  border-bottom-color: transparent !important;
+}
+.header-edit {
+  background-color: #3499cc !important;
+  height: 70px !important;
+  color: white !important;
+}
+.mat-mdc-header-cell:first-child{
+    border-bottom-left-radius: 27px !important;;
+}
+.mat-mdc-header-cell:last-child{
+  border-bottom-right-radius: 27px !important;;
+}
+.mat-column-Actions:has(.mat-mdc-header-cell){
+  border-bottom-right-radius: 27px !important;;
+}
+[dir='rtl'] .mat-mdc-header-cell:first-child{
+    border-bottom-right-radius: 27px !important;;
+    border-bottom-left-radius: 0px !important;
+}
+[dir='rtl'] .mat-mdc-header-cell:last-child{
+  border-bottom-left-radius: 27px !important;;
+  border-bottom-right-radius: 0px !important;
+}
+[dir='rtl'] .mat-column-Actions:has(.mat-mdc-header-cell){
+  border-bottom-left-radius: 27px !important;;
+  border-bottom-right-radius: 0px !important;
+}
+.mat-mdc-header-cell{
+  text-align: center !important;
+}
+.mat-mdc-cell{
+  text-align: center !important;
+}
+
+.mat-mdc-header-row{
+  position: relative;
+  box-shadow: 0px 1px 3px 1px #00000052;
+  border-radius: 27px;
+}
+.table-top-shadow{
+  box-shadow: 0px 6px 5px -3px #00000052;
+  z-index: 99;
+  position: relative;
+}
+.mdc-data-table__cell {
+  color:  #262c40 !important;
+  // font-weight: bold;
+}
