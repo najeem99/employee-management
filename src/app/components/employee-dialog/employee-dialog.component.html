@@ -1,0 +1,203 @@
+<div class="container form-container">
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="container mt-4">
+
+    <!-- Employee Identity Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h5>Employee Identity</h5>
+      </div>
+
+      <!-- Employee Code -->
+      <div class="col-md-6 mb-3">
+        <mat-label>Employee Code*</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="employeeCode" [readonly]="employeeCodeReadOnly"
+            (input)="validateEmployeeCode()" placeholder="Ex:A123DDS5" />
+          <mat-error
+            *ngIf="employeeForm.get('employeeCode')?.invalid && (employeeForm.get('employeeCode')?.dirty || employeeForm.get('employeeCode')?.touched)">
+            <small *ngIf="employeeForm.get('employeeCode')?.errors?.['required']">Employee Code is required.</small>
+            <small *ngIf="employeeForm.get('employeeCode')?.errors?.['pattern']">Invalid Employee Code format.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 mb-3 error-message-container mt-2">
+        <!-- Validation Rules -->
+        <small [ngClass]="{'text-success': isFirstCharValid, 'text-danger': !isFirstCharValid}">
+          1. Start with an uppercase letter (A-Z) or "#".
+        </small><br>
+        <small [ngClass]="{'text-success': areDigitsValid, 'text-danger': !areDigitsValid}">
+          2. Follow with 3-4 digits.
+        </small><br>
+        <small [ngClass]="{'text-success': areNextCharsValid, 'text-danger': !areNextCharsValid}">
+          3. Then 2 uppercase letters (A-Z).
+        </small><br>
+        <small [ngClass]="{'text-success': isLengthValid, 'text-danger': !isLengthValid}">
+          4. Length 8 or 10: if 8, end with 1 digit; if 10, end with 2 digits.
+        </small>
+      </div>
+    </div>
+
+    <!-- Employee Details Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h5>Employee Details</h5>
+      </div>
+
+      <!-- First Name -->
+      <div class="col-md-6 mb-3">
+        <mat-label>First Name*</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="employeeFirstName" />
+        </mat-form-field>
+      </div>
+
+      <!-- Middle Name -->
+      <div class="col-md-6 mb-3">
+        <mat-label>Middle Name</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="employeeMiddleName" />
+        </mat-form-field>
+      </div>
+
+      <!-- Last Name -->
+      <div class="col-md-6 mb-3">
+        <mat-label>Last Name*</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="employeeLastName" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Work Details Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h5>Work Details</h5>
+      </div>
+
+<!-- Department -->
+<div class="col-md-6 mb-3">
+  <mat-label>Department*</mat-label>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-select formControlName="departmentName">
+      <mat-option *ngFor="let department of departments" [value]="department">
+        {{ department }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+      <!-- Grade -->
+      <div class="col-md-6 mb-3">
+        <mat-label>Grade*</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select formControlName="grade">
+            <mat-option *ngFor="let grade of grades" [value]="grade">
+              {{ grade }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Reporting Manager -->
+      <div class="col-md-6 mb-3">
+        <mat-label>Reporting Manager*</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select formControlName="reportingManager">
+            <mat-option *ngFor="let department of employeeService.employeeArray" [value]="department.employeeFirstName +' '+  department.employeeMiddleName +' '+ department.employeeLastName">
+              {{ department.employeeFirstName +' '+  department.employeeMiddleName +' '+ department.employeeLastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Skills -->
+      <div class="col-md-6 mb-3">
+        <mat-label>Skills*</mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select formControlName="skills" multiple>
+            <mat-option value="JavaScript">JavaScript</mat-option>
+            <mat-option value="Angular">Angular</mat-option>
+            <mat-option value="TypeScript">TypeScript</mat-option>
+            <mat-option value="CSS">CSS</mat-option>
+            <mat-option value="HTML">HTML</mat-option>
+            <mat-option value="React">React</mat-option>
+            <mat-option value="Node.js">Node.js</mat-option>
+            <mat-option value="Express">Express</mat-option>
+            <mat-option value="MongoDB">MongoDB</mat-option>
+            <mat-option value="SQL">SQL</mat-option>
+            <mat-option value="AWS">AWS</mat-option>
+            <mat-option value="Git">Git</mat-option>
+            <mat-option value="Docker">Docker</mat-option>
+            <mat-option value="Kubernetes">Kubernetes</mat-option>
+            <mat-option value="GraphQL">GraphQL</mat-option>      
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Salary Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h5>Salary & Allowances</h5>
+      </div>
+
+      <!-- Basic Salary -->
+      <div class="col-md-4 d-flex align-items-center mb-3">
+        <mat-label>Basic Salary*</mat-label>
+      </div>
+      <div class="col-md-8 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="basicSalary" type="number" />
+        </mat-form-field>
+      </div>
+
+      <!-- House Rent -->
+      <div class="col-md-4 d-flex align-items-center mb-3">
+        <mat-label>House Rent*</mat-label>
+      </div>
+      <div class="col-md-8 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="houseRent" type="number" />
+        </mat-form-field>
+      </div>
+
+      <!-- Other Allowance -->
+      <div class="col-md-4 d-flex align-items-center mb-3">
+        <mat-label>Other Allowance*</mat-label>
+      </div>
+      <div class="col-md-8 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="otherAllowance" type="number" />
+        </mat-form-field>
+      </div>
+
+      <!-- Salary Per Month -->
+      <div class="col-md-4 d-flex align-items-center mb-3">
+        <mat-label>Salary Per Month (Auto calculated)</mat-label>
+      </div>
+      <div class="col-md-8 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [value]="getSalaryPerMonth()" type="number" readonly />
+        </mat-form-field>
+      </div>
+
+      <!-- Salary Per Year -->
+      <div class="col-md-4 d-flex align-items-center mb-3">
+        <mat-label>Salary Per Year (Auto calculated)</mat-label>
+      </div>
+      <div class="col-md-8 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [value]="getSalaryPerYear()" type="number" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <!-- Submit Button -->
+    <div class="text-center mt-3 ">
+      <button mat-raised-button color="primary" type="submit" class="button-s1" [disabled]="employeeForm.invalid">
+        {{employeeCodeReadOnly ? 'Update' : 'Save'}}
+      </button>
+    </div>
+  </form>
+</div>
