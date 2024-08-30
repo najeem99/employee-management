@@ -17,11 +17,20 @@ export class EmployeeService {
   }
 
   addEmployee(data: Employee) {
-    console.log(data)
     this.employeeArray.push(data);
     this.employeeDataSubject.next(this.employeeArray);
     console.log("Employee Added Successfully")
-    this.toastr.success("Employee Added Successfully");
+    this.toastr.success("","Employee Added Successfully");
+  }
+  updateEmployee(data: Employee) {
+    this.employeeArray.map(element => {
+      if(element.employeeCode === data.employeeCode){
+        element = data
+      }
+    });
+    this.employeeDataSubject.next(this.employeeArray);
+    console.log("Employee Updated Successfully")
+    this.toastr.success("","Employee Updated Successfully");
   }
   checkIfEmployeeIDExists(employeeCode: string): boolean {
     let idExists:boolean = false;
