@@ -14,11 +14,18 @@
     padding: 11px 10px;
 }
 ::ng-deep .mat-drawer-inner-container{
-    background-color: #b7bbc7 !important;
+    background-color: #262c40  !important;
+    border-radius: 0px 45px 45px 0px;
 }
 .mat-nav-list a {
     color: aqua;
 }
 .sidenav-container{
     width: 100%;
+}
+.menu-items{
+    color: white !important;
+}
+.navlist{
+    border-top: 7px solid #b5b5b538;
 }
