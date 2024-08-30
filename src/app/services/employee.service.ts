@@ -23,11 +23,15 @@ export class EmployeeService {
     this.toastr.success("","Employee Added Successfully");
   }
   updateEmployee(data: Employee) {
-    this.employeeArray.map(element => {
+    console.log(data)
+
+    this.employeeArray.forEach((element,index) => {
+      console.log(element.employeeCode === data.employeeCode)
       if(element.employeeCode === data.employeeCode){
-        element = data
+        this.employeeArray[index] = data
       }
     });
+
     this.employeeDataSubject.next(this.employeeArray);
     console.log("Employee Updated Successfully")
     this.toastr.success("","Employee Updated Successfully");
